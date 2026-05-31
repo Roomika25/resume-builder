@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resume Cloud Builder</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    .bg-gradient-dark { background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); }
+    .form-control:focus { border-color: #3b82f6; box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15); }
+    .project-switch { width: 3em !important; height: 1.5em !important; cursor: pointer; }
+  </style>
+</head>
+<body class="bg-light">
+
+  <nav class="navbar navbar-dark bg-dark mb-4 shadow-sm">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="#"><i class="fa-solid fa-file-invoice me-2 text-primary"></i>Resume<span class="text-primary">Builder</span></a>
+    </div>
+  </nav>
+
+  <div class="container mb-5">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <form action="/generate-pdf" method="POST" class="card shadow border-0 rounded-3 overflow-hidden">
+          <div class="card-header bg-gradient-dark text-white p-4">
+            <h3 class="mb-1 fw-bold">Resume Workspace</h3>
+            <p class="text-muted mb-0 small">Fill out your profile context below to instantly export a PDF document.</p>
+          </div>
+          <div class="card-body p-4">
+            
+            <div class="mb-4">
+              <h5 class="text-primary border-bottom pb-2 mb-3"><i class="fa-regular fa-id-card me-2"></i>Contact Particulars</h5>
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label class="form-label small fw-bold">Full Name</label>
+                  <input type="text" name="name" class="form-control" placeholder="Jane Doe" required>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label small fw-bold">Email Address</label>
+                  <input type="email" name="email" class="form-control" placeholder="jane.doe@example.com" required>
+                </div>
+              </div>
+            </div>
+
+            <div class="mb-4">
+              <h5 class="text-primary border-bottom pb-2 mb-3"><i class="fa-solid fa-feather-pointed me-2"></i>Professional Overview</h5>
+              <textarea name="summary" class="form-control" rows="3" placeholder="Detail your operational strengths, tenure focus points, and engineering values..." required></textarea>
+            </div>
+
+            <div class="mb-4">
+              <div class="d-flex justify-content-between align-items-center border-bottom pb-2 mb-3">
+                <h5 class="text-primary mb-0"><i class="fa-solid fa-briefcase me-2"></i>Professional Experience</h5>
+                <button type="button" class="btn btn-sm btn-outline-primary rounded-pill" onclick="addWorkRow()"><i class="fa-solid fa-plus me-1"></i> Add Position</button>
+              </div>
+              <div id="experience-list">
+                <div class="p-3 bg-light rounded-3 mb-2">
+                  <textarea name="experience" class="form-control" rows="3" placeholder="Software Engineer at Globex Corp (2022 - Present)&#10;• Designed microservices reducing latency spikes by 40%." required></textarea>
+                </div>
+              </div>
+            </div>
+
+            <div class="mb-4">
+              <h5 class="text-primary border-bottom pb-2 mb-3"><i class="fa-solid fa-graduation-cap me-2"></i>Academic Profile</h5>
+              <textarea name="education" class="form-control" rows="2" placeholder="B.S. Electrical Engineering — MIT (2018-2022)" required></textarea>
+            </div>
+
+            <div class="card bg-light border-0 p-3 mb-3">
+              <div class="form-check form-switch d-flex align-items-center">
+                <input class="form-check-input me-3 project-switch" type="checkbox" name="saveToDb" value="true" id="saveDb">
+                <label class="form-check-label small" for="saveDb"><strong>Save submission snapshot history</strong> securely to structural cloud cluster pools.</label>
+              </div>
+            </div>
+
+          </div>
+          <div class="card-footer bg-white p-4 d-flex justify-content-end border-0">
+            <button type="submit" class="btn btn-primary btn-lg px-5 rounded-pill shadow-sm fw-bold">Compile Resume PDF</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function addWorkRow() {
+      const block = document.createElement('div');
+      block.className = 'p-3 bg-light rounded-3 mb-2 position-relative';
+      block.innerHTML = `
+        <button type="button" class="btn-close position-absolute top-0 end-0 m-2" style="font-size:0.75rem;" onclick="this.parentElement.remove()"></button>
+        <textarea name="experience" class="form-control" rows="3" placeholder="Add additional role details..." required></textarea>
+      `;
+      document.getElementById('experience-list').appendChild(block);
+    }
+  </script>
+</body>
+</html>
